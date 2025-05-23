@@ -12,7 +12,8 @@ The types in automerge are:
   - IEEE 754 64 bit floating point numbers
   - Unsigned integers
   - Signed integers
-  - Booleans Strings
+  - Booleans
+  - Strings
   - Timestamps
   - Counters
   - Byte arrays
@@ -71,7 +72,7 @@ let doc = A.from({
   },
   list: ["a", "b", "c", { nested: "map" }, ["nested list"]],
   // Note we are using the `next` API for text, so text sequences are strings
-  text: "some text",
+  text: "world",
   // In the `next` API non mergable strings are instances of `RawString`.
   // You should generally not need to use these. They are retained for backward
   // compatibility

@@ -24,6 +24,31 @@ const config = {
     mermaid: true,
   },
   themes: ["@docusaurus/theme-mermaid"],
+  plugins: [
+  function() {
+    return {
+      name: "enable-wasm",
+      configureWebpack() {
+        return {
+          experiments: {
+            asyncWebAssembly: true
+          }
+        }
+      }
+    }
+    },
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          { 
+            from: "/blog/2025/05/13/automerge-repoo-2/",
+            to: "/blog/2025/05/13/automerge-repo-2/",
+          }
+        ]
+      }
+    ]
+  ],
 
   presets: [
     [
