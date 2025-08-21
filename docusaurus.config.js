@@ -11,7 +11,7 @@ const config = {
   title: "Automerge CRDT",
   tagline:
     "Automerge is a library of data structures for building collaborative applications.",
-  url: "https://automerge.github.io",
+  url: "https://automerge.org",
   baseUrl: "/",
   trailingSlash: true,
   onBrokenLinks: "warn",
@@ -24,6 +24,48 @@ const config = {
     mermaid: true,
   },
   themes: ["@docusaurus/theme-mermaid"],
+  plugins: [
+    function () {
+      return {
+        name: "enable-wasm",
+        configureWebpack() {
+          return {
+            experiments: {
+              asyncWebAssembly: true,
+            },
+          };
+        },
+      };
+    },
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            from: "/blog/2025/05/13/automerge-repoo-2/",
+            to: "/blog/2025/05/13/automerge-repo-2/",
+          },
+        ],
+      },
+    ],
+    [
+      "docusaurus-plugin-llms",
+      {
+        includeOrder: [
+          "**/hello.md",
+          "**/tutorial/index.md",
+          // "**/tutorial/*.mdx", // can be added once https://github.com/rachfop/docusaurus-plugin-llms/issues/15 is fixed
+          "**/cookbook/*.md",
+          "**/reference/*.md",
+          "**/reference/documents/*.md",
+          "**/reference/repositories/*.md",
+          "**/reference/under-the-hood/*.md",
+          "**/migrating-from-automerge-2-to-automerge-3.md",
+        ],
+        includeUnmatchedLast: false,
+      },
+    ],
+  ],
 
   presets: [
     [
@@ -36,6 +78,7 @@ const config = {
             "https://github.com/automerge/automerge.github.io/edit/main/",
           remarkPlugins: [math],
           rehypePlugins: [katex],
+          sidebarCollapsible: true,
         },
         blog: {
           showReadingTime: true,
@@ -108,8 +151,8 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Quick Start",
-                to: "docs/quickstart",
+                label: "Tutorial",
+                to: "docs/tutorial",
               },
             ],
           },
@@ -157,6 +200,21 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        magicComments: [
+          {
+            className: "theme-code-block-highlighted-line",
+            line: "highlight-next-line",
+            block: { start: "highlight-start", end: "highlight-end" },
+          },
+          {
+            className: "theme-code-block-highlighted-red-line",
+            block: {
+              start: "highlight-red-start",
+              end: "highlight-red-end",
+            },
+            line: "highlight-red-next-line",
+          },
+        ],
       },
     }),
 };
